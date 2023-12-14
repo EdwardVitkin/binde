@@ -28,7 +28,7 @@ def calc_app_probability(X,Y, testnm='proportion'):
         neg_vals = X[gi, Y == 0]
 
         if testnm == 'proportion':
-            stat[gi], pval[gi] = znormal_proportion_binde_test(pos_vals, neg_vals)
+            stat[gi], pval[gi] = proportion_binde_test(pos_vals, neg_vals)
         elif testnm == 'hg':
             if dirsign[gi]>0:
                 stat[gi], pval[gi] = None, hg_binde_test_vec(pos_vals, neg_vals)
@@ -76,7 +76,7 @@ def hg_binde_test_vec(grpA, grpB):
 #           two-sided [DEFAULT] - Checks if proportion of appearances of Group A is DIFFERENT of that of Group B
 #           less - Checks if proportion of appearances of Group A is LOWER of that of Group B
 #           greater [DEFAULT] - Checks if proportion of appearances of Group A is HIGHER of that of Group B
-def znormal_proportion_binde_test(grpA, grpB, alternative='two-sided'):
+def proportion_binde_test(grpA, grpB, alternative='two-sided'):
     nA = grpA.shape[0]
     nB = grpB.shape[0]
     hitA = np.count_nonzero(grpA,axis=0)
@@ -117,10 +117,10 @@ def usage_example():
     ttl_str = lambda grp_1,grp_2: f"({np.count_nonzero(grp_1)}/{len(grp_1)} vs {np.count_nonzero(grp_2)}/{len(grp_2)} successes)"
 
     print('Proportion-based test (zscore,pvalue)')
-    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=two-sided = {znormal_proportion_binde_test(grp_1, grp_2)}")
-    print(f"\t{ttl_str(grp_2, grp_1)}, alternative=two-sided = {znormal_proportion_binde_test(grp_2, grp_1)}")
-    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=less = {znormal_proportion_binde_test(grp_1, grp_2, 'less')}")
-    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=greater = {znormal_proportion_binde_test(grp_1, grp_2, 'greater')}")
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=two-sided = {proportion_binde_test(grp_1, grp_2)}")
+    print(f"\t{ttl_str(grp_2, grp_1)}, alternative=two-sided = {proportion_binde_test(grp_2, grp_1)}")
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=less = {proportion_binde_test(grp_1, grp_2, 'less')}")
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=greater = {proportion_binde_test(grp_1, grp_2, 'greater')}")
 
     print('HG-based test (pvalue)')
     print(f"\t{ttl_str(grp_1, grp_2)} = {hg_binde_test_vec(grp_1, grp_2)}")

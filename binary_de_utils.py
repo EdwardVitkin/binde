@@ -7,43 +7,13 @@
 import numpy as np
 from scipy import stats
 
-#   Calculates appearance probabilities for all molecules in experiments
-#   INPUTS:
-#       X - measurements of size: [Num Measured molecules]x[Num of experiments]
-#       Y - experiment binary indicator vector of size [Num of experiments]
-#           1 - experiment belongs to Group A (test)
-#           0 - experiment belongs to Group B (control)
-#       testnm - type of test to apply
-#           'proportion' - Proportion based Test
-#           'hg'         - Hypergeometric distribution based Test
-#
-def calc_app_probability(X,Y, testnm='proportion'):
-    print(f'Calculating UQ w <{testnm}>. # Positive={np.count_nonzero(Y == 1)}, # Negative={np.count_nonzero(Y == 0)}')
-    stat, pval = np.zeros(shape=X.shape[0]),np.zeros(shape=X.shape[0])
-    pcnts, pN = np.sum(np.sign(X[:, Y == 1]), axis=1), np.count_nonzero(Y == 1)
-    ncnts, nN = np.sum(np.sign(X[:, Y == 0]), axis=1), np.count_nonzero(Y == 0)
-    dirsign = np.sign(pcnts/pN - ncnts/nN)
-    for gi in range(X.shape[0]):
-        pos_vals = X[gi, Y == 1]
-        neg_vals = X[gi, Y == 0]
-
-        if testnm == 'proportion':
-            stat[gi], pval[gi] = proportion_binde_test(pos_vals, neg_vals)
-        elif testnm == 'hg':
-            if dirsign[gi]>0:
-                stat[gi], pval[gi] = None, hg_binde_test_vec(pos_vals, neg_vals)
-            else:
-                stat[gi], pval[gi] = None, hg_binde_test_vec(neg_vals, pos_vals)
-
-    return stat, dirsign, pval, pcnts, ncnts
-
 #   Hypergeometric distribution based Test on data statistics:
 #   INPUTS:
 #       Na - number of experiments from type A
 #       cA - number of experiments from type A, where the molecule of interest was observed
 #       Nb - number of experiments from type B
 #       cB - number of experiments from type B, where the molecule of interest was observed
-def hg_binde_test(Na, cA, Nb, cB):
+def hg_binde_test_sizes(Na, cA, Nb, cB):
     population_sz = Na + Nb
     groupA_sz = Na
     groupB_sz = cA + cB
@@ -59,10 +29,19 @@ def hg_binde_test(Na, cA, Nb, cB):
 #           values:
 #               0 (False) - molecule was NOT observed in the experiment
 #               1 (True) - molecule was observed in the experiment
-def hg_binde_test_vec(grpA, grpB):
-    Na, Nb = len(grpA), len(grpB)
-    cA, cB = np.count_nonzero(grpA), np.count_nonzero(grpB)
-    return hg_binde_test(Na, cA, Nb, cB)
+def hg_binde_test_vec(indicators_grpA, indicators_grpB):
+    Na, Nb = len(indicators_grpA), len(indicators_grpB)
+    cA, cB = np.count_nonzero(indicators_grpA), np.count_nonzero(indicators_grpB)
+    return hg_binde_test_sizes(Na, cA, Nb, cB)
+
+#   Hypergeometric distribution based Test on values:
+#   INPUTS:
+#       values_grpA - values of experiments from type A
+#       values_grpB - values of experiments from type A
+def hg_binde(values_grpA, values_grpB):
+    indicators_grpA = np.array([v>0 for v in values_grpA])
+    indicators_grpB = np.array([v>0 for v in values_grpB])
+    return hg_binde_test_vec(indicators_grpA, indicators_grpB)
 
 
 #   Proportion based Test on experiment binary indicator vectors
@@ -76,11 +55,11 @@ def hg_binde_test_vec(grpA, grpB):
 #           two-sided [DEFAULT] - Checks if proportion of appearances of Group A is DIFFERENT of that of Group B
 #           less - Checks if proportion of appearances of Group A is LOWER of that of Group B
 #           greater [DEFAULT] - Checks if proportion of appearances of Group A is HIGHER of that of Group B
-def proportion_binde_test(grpA, grpB, alternative='two-sided'):
-    nA = grpA.shape[0]
-    nB = grpB.shape[0]
-    hitA = np.count_nonzero(grpA,axis=0)
-    hitB = np.count_nonzero(grpB,axis=0)
+def proportion_binde_test(indicators_grpA, indicators_grpB, alternative='two-sided'):
+    nA = indicators_grpA.shape[0]
+    nB = indicators_grpB.shape[0]
+    hitA = np.count_nonzero(indicators_grpA, axis=0)
+    hitB = np.count_nonzero(indicators_grpB, axis=0)
     pA = hitA / nA
     pB = hitB / nB
 
@@ -108,7 +87,18 @@ def proportion_binde_test(grpA, grpB, alternative='two-sided'):
 
     return zscore, pvalue
 
-def usage_example():
+#   Proportion based Test on values:
+#   INPUTS:
+#       values_grpA - values of experiments from type A
+#       values_grpB - values of experiments from type A
+def proportion_binde(values_grpA, values_grpB,alternative='two-sided'):
+    indicators_grpA = np.array([v>0 for v in values_grpA])
+    indicators_grpB = np.array([v>0 for v in values_grpB])
+
+    return proportion_binde_test(indicators_grpA, indicators_grpB,alternative=alternative)
+
+
+def usage_example1():
     grp_1 = np.zeros(shape=(50))
     grp_1[:32] = 1
     grp_2 = np.zeros(shape=(60))
@@ -126,7 +116,26 @@ def usage_example():
     print(f"\t{ttl_str(grp_1, grp_2)} = {hg_binde_test_vec(grp_1, grp_2)}")
     print(f"\t{ttl_str(grp_2, grp_1)} = {hg_binde_test_vec(grp_2, grp_1)}")
     return
+def usage_example2():
+    grp_1 = 1000*np.random.rand(50)
+    grp_1[32:] = 0
+    grp_2 = 1000*np.random.rand(60)
+    grp_2[18:] = 0
+
+    ttl_str = lambda grp_1,grp_2: f"({np.count_nonzero(grp_1)}/{len(grp_1)} vs {np.count_nonzero(grp_2)}/{len(grp_2)} successes)"
+
+    print('Proportion-based test (zscore,pvalue)')
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=two-sided = {proportion_binde(grp_1, grp_2)}")
+    print(f"\t{ttl_str(grp_2, grp_1)}, alternative=two-sided = {proportion_binde(grp_2, grp_1)}")
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=less = {proportion_binde(grp_1, grp_2, 'less')}")
+    print(f"\t{ttl_str(grp_1, grp_2)}, alternative=greater = {proportion_binde(grp_1, grp_2, 'greater')}")
+
+    print('HG-based test (pvalue)')
+    print(f"\t{ttl_str(grp_1, grp_2)} = {hg_binde(grp_1, grp_2)}")
+    print(f"\t{ttl_str(grp_2, grp_1)} = {hg_binde(grp_2, grp_1)}")
+    return
 
 
 if __name__ == '__main__':
-    usage_example()
+    usage_example1()
+    usage_example2()

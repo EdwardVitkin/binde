@@ -1,0 +1,35 @@
+python.exe binary_analysis_test.py
+
+------------------ START OF APPEARANCE -----------------------
+Calculating UQ w <proportion>. # Positive=60, # Negative=63
+ 7087, i.e. 100.0% of 7087 proteins appear in less than 90% of samples
+ 6980, i.e. 98.5% of 7087 proteins appear in less than 50% of samples
+ 3769, i.e. 53.2% of 7087 proteins appear in less than 10% of samples
+Calculating UQ w <hg>. # Positive=60, # Negative=63
+------------------ END OF APPEARANCE -----------------------
+------------------ START OF DE -----------------------
+------------------ END OF DE -----------------------
+                Protein names                                                              dirsign  ratio      BCC count  BCC proportion  BCC mean      BCC std       SCC count  SCC proportion  SCC mean      SCC std       Wilcoxon Pvalue  Wilcoxon Rank  Proportion_Test Pvalue  Proportion_Test Rank  HG_Test Pvalue  HG_Test Rank
+Gene names                                                                                                                                                                                                                                                                                                                             
+CRNN                                                                              Cornulin    UP    11.904540  49.0       0.816667        5.391010e+08  1.956222e+09  22.0       0.349206        4.528533e+07  2.375934e+08  1.897890e-07       1.0          1.555992e-07               1.0                1.150334e-07       1.0      
+PHGDH                                                   D-3-phosphoglycerate dehydrogenase    UP     5.119400  45.0       0.750000        5.958697e+08  1.250105e+09  26.0       0.412698        1.163944e+08  5.281513e+08  1.306444e-05       2.0          1.536003e-04              30.0                1.366728e-04      32.0      
+SULT1E1                                                               Sulfotransferase 1E1    UP    21.320571  33.0       0.550000        5.521777e+07  1.308752e+08   8.0       0.126984        2.589883e+06  1.056295e+07  2.417058e-05       3.0          6.538985e-07               2.0                5.018155e-07       2.0      
+ITPK1                                                  Inositol-tetrakisphosphate 1-kinase    UP     4.297907  26.0       0.433333        9.195747e+06  1.931444e+07   4.0       0.063492        2.139587e+06  9.683065e+06  6.252246e-04      40.0          1.803135e-06               3.0                1.145202e-06       3.0      
+TGM3                                         Protein-glutamine gamma-glutamyltransferase E    UP    12.746408  57.0       0.950000        1.204904e+09  4.901740e+09  56.0       0.888889        9.452892e+07  1.267908e+08  4.114167e-05       4.0          2.151257e-01            3119.5                1.822166e-01    3109.5      
+FBLN5                                                                            Fibulin-5    UP    92.929338  22.0       0.366667        2.663207e+06  7.308542e+06   2.0       0.031746        2.865841e+04  1.602824e+05  9.879576e-04      55.5          2.798487e-06               4.0                1.389770e-06       4.0      
+TMSB15B;TMSB15A                                       Thymosin beta-15B; Thymosin beta-15A    UP     5.265894  35.0       0.583333        2.566939e+07  5.253963e+07  11.0       0.174603        4.874651e+06  2.038037e+07  4.345022e-05       5.0          2.829044e-06               5.0                2.446046e-06       5.0      
+ASMTL             Probable bifunctional dTTP/UTP pyrophosphatase/methyltransferase protein    UP    28.074598  24.0       0.400000        8.219275e+06  2.148772e+07   4.0       0.063492        2.927656e+05  1.324136e+06  1.061513e-03      58.5          8.630993e-06               6.0                6.139846e-06       7.0      
+ISYNA1                                                     Inositol-3-phosphate synthase 1    UP    16.182999  33.0       0.550000        1.877071e+07  4.588500e+07  12.0       0.190476        1.159903e+06  3.801594e+06  5.455687e-05       6.0          3.506073e-05              13.0                3.183601e-05      13.0      
+SERPINB13                                                                       Serpin B13  DOWN     0.000000   0.0       0.000000        0.000000e+00  0.000000e+00  17.0       0.269841        1.092510e+07  2.904157e+07  9.865703e-03     245.5          1.461552e-05               8.0                3.400275e-06       6.0      
+Proportion vs HG:
+	Pearson: Rank=0.97, Pvalue=0.93
+	Spearman: Rank=0.97, Pvalue=0.97
+Proportion vs Wilcoxon:
+	Pearson: Rank=0.82, Pvalue=0.76
+	Spearman: Rank=0.82, Pvalue=0.82
+HG vs Wilcoxon:
+	Pearson: Rank=0.88, Pvalue=0.82
+	Spearman: Rank=0.88, Pvalue=0.88
+Finished
+
+Process finished with exit code 0

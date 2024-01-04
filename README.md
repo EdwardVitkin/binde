@@ -7,7 +7,14 @@
 - "de_vs_binary.input.pkl" - Input data (based on "Proteome sampling with e-biopsy enables differentiation between cutaneous squamous cell carcinoma and basal cell carcinoma", https://www.medrxiv.org/content/10.1101/2022.12.22.22283845v1)
 - "stdout.log" - Expected console output
 
-# Toy Usage Example output:
+# Toy Usage Example 
+## input:
+<p> Compare observations between Group A and Group B, while:<br>
+  - Group A: Biomarker was observed in 32 out of 50 experiments<br>
+  - Group B: Biomarker was observed in 18 out of 60 experiments <br>
+  </p>
+
+## output:
 <p><i>Proportion-based test (zscore,pvalue)</i><br>
 - (32/50 vs 18/60 successes), alternative=two-sided: (array(3.56595008), array(0.00036254))<br>
 - (18/60 vs 32/50 successes), alternative=two-sided: (array(-3.56595008), array(0.00036254))<br>

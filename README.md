@@ -1,7 +1,8 @@
 # binde
-## Differential expression analysis of binary appearance patterns
+## Library for Differential expression analysis of binary appearance patterns
 
 - "binary_de_utils.py" - Library with Appearance Differential Expression analysis functions + Toy Usage example
+- "analysis_utils.py"  - Library with auxiliary functions
 - "binary_analysis_test.py" - Real-Data usage example of Appearance Differential Expression analysis functions for article "Differential expression analysis of binary appearance patterns"
 - "de_vs_binary.input.pkl" - Input data (based on "Proteome sampling with e-biopsy enables differentiation between cutaneous squamous cell carcinoma and basal cell carcinoma", https://www.medrxiv.org/content/10.1101/2022.12.22.22283845v1)
 - "stdout.log" - Expected console output

@@ -5,13 +5,15 @@ Comparing conditions: BCC vs SCC. NOISE_CUT=1.0
 Dataset shape: (26569, 35). Significant corrected pvalue corresponding to 0.05 is  1.8818924310286425e-06
 ------------------ START OF APPEARANCE -----------------------
 Calculating UQ w <proportion>. # Positive=25, # Negative=10
-13.9% of 26569 genes appear in less than 80% of samples
+ 10169, i.e. 38.3% of 26569 genes appear in less than 90% of samples
+ 7439, i.e. 28.0% of 26569 genes appear in less than 50% of samples
+ 4982, i.e. 18.8% of 26569 genes appear in less than 10% of samples
 	Proportion_Test: Found 2200/26569 genes w Pvalue below 0.05 (FDR=0.60)
 Calculating UQ w <hg>. # Positive=25, # Negative=10
 	HG_Test: Found 1729/26569 genes w Pvalue below 0.05 (FDR=0.77)
 ------------------ END OF APPEARANCE -----------------------
 ------------------ START OF DE -----------------------
-	INDEPENDENT StudentT-test: Found 13408/26569 genes w Pvalue below 0.05 (FDR=0.10)
+Found 13408/26569 genes w Pvalue below 0.05 (FDR=0.10)
 ------------------ END OF DE -----------------------
           Description                                                  dirsign  ratio       BCC count  BCC proportion  BCC mean   BCC std   SCC count  SCC proportion  SCC mean  SCC std   StudentT Pvalue  StudentT Rank  Proportion_Test Pvalue  Proportion_Test Rank  HG_Test Pvalue  HG_Test Rank  Minimal Rank
 Symbol
@@ -21,9 +23,9 @@ ZBTB8B                        zinc finger and BTB domain containing 8B    UP    
 KIF26A-DT                                  KIF26A divergent transcript    UP     13.079719  25.0       1.0              3.709260  1.064607   0.0       0.0             0.000000  0.000000  2.906703e-12      402.0         3.297053e-09               1.0                5.447234e-09       1.0        1.0
 IRS4-AS1                                          IRS4 antisense RNA 1    UP     72.260387  25.0       1.0              6.175133  0.756710   0.0       0.0             0.000000  0.000000  4.712720e-23        5.0         3.297053e-09               1.0                5.447234e-09       1.0        1.0
 PTCH2                                                        patched 2  DOWN    243.801867  25.0       1.0             11.122143  0.475459  10.0       1.0             3.192577  0.692335  1.064379e-28        1.0         1.000000e+00            8415.0                1.000000e+00    8520.0        1.0
-FOXI3                                                  forkhead box I3    UP    265.733694  25.0       1.0              9.229326  0.527855   8.0       0.8             1.175489  0.767366  1.824698e-27        2.0         2.128836e-02            1508.0                7.563025e-02    2077.0        2.0
+FOXI3                                                  forkhead box I3    UP    265.733694  25.0       1.0              9.229326  0.527855   8.0       0.8             1.175489  0.767366  1.824698e-27        2.0         2.128836e-02            1508.0                7.563025e-02    2037.0        2.0
 LGR5       leucine rich repeat containing G protein-coupled receptor 5  DOWN    178.853632  25.0       1.0             10.192785  0.759972  10.0       1.0             2.710149  0.595884  4.057898e-24        3.0         1.000000e+00            8415.0                1.000000e+00    8520.0        3.0
-FBN3                                                       fibrillin 3    UP    495.768963  25.0       1.0              9.917910  0.818307   5.0       0.5             0.964386  1.023831  9.723093e-24        4.0         1.340953e-04             292.0                7.762636e-04     365.0        4.0
+FBN3                                                       fibrillin 3    UP    495.768963  25.0       1.0              9.917910  0.818307   5.0       0.5             0.964386  1.023831  9.723093e-24        4.0         1.340953e-04             292.0                7.762636e-04     366.0        4.0
 Proportion vs HG:
 	Pearson: Rank=0.98, Pvalue=0.98
 	Spearman: Rank=0.99, Pvalue=0.99
